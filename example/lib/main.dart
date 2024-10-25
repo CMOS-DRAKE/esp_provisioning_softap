@@ -1,4 +1,4 @@
-import 'package:esp_provisioning_softap_example/softap_screen/softap_screen.dart';
+import 'package:example/softap_screen/softap_screen.dart';
 import 'package:flutter/material.dart';
 
 typedef ItemTapCallback = void Function(Map<String, dynamic> item);
@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
               'Start Provisioning',
               style: Theme.of(context)
                   .textTheme
-                  .headline6
+                  .titleLarge!
                   .copyWith(color: Colors.white),
             ),
           ),

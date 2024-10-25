@@ -25,6 +25,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace "de.petersen.nico.esp_provisioning_softap"
     compileSdkVersion 30
 
     sourceSets {

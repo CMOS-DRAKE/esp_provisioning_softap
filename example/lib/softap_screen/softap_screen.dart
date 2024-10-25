@@ -1,7 +1,7 @@
-import 'package:esp_provisioning_softap_example/softap_screen/softap_bloc.dart';
-import 'package:esp_provisioning_softap_example/softap_screen/softap_event.dart';
-import 'package:esp_provisioning_softap_example/softap_screen/softap_state.dart';
-import 'package:esp_provisioning_softap_example/wifi_screen/wifi.dart';
+import 'package:example/softap_screen/softap_bloc.dart';
+import 'package:example/softap_screen/softap_event.dart';
+import 'package:example/softap_screen/softap_state.dart';
+import 'package:example/wifi_screen/wifi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -12,9 +12,7 @@ class SoftApScreen extends StatefulWidget {
 }
 
 class _SoftApScreenState extends State<SoftApScreen> {
-
   void _showBottomSheet(BuildContext _context) {
-
     var bottomSheetController = showModalBottomSheet(
         context: context,
         backgroundColor: Colors.white,
@@ -52,43 +50,45 @@ class _SoftApScreenState extends State<SoftApScreen> {
           builder: (BuildContext context, SoftApState state) {
             if (state is SoftApStateLoaded) {
               return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(4.0),
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      child:Text('Please connect WiFi to ESP32 AP (PROV_XXX) in "Wi-Fi Settings". Once you complete it please tap on "Ready" button.',
-                      style: TextStyle(fontSize: 18),),
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(4.0),
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    child: Text(
+                      'Please connect WiFi to ESP32 AP (PROV_XXX) in "Wi-Fi Settings". Once you complete it please tap on "Ready" button.',
+                      style: TextStyle(fontSize: 18),
                     ),
-
-                    SizedBox(height: MediaQuery.of(context).size.width * 0.1,),
-                    MaterialButton(
-                      color: Colors.lightBlueAccent,
-                      elevation: 5,
-                      padding: EdgeInsets.all(15.0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: Text(
-                        'Ready',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6
-                            .copyWith(color: Colors.white),
-                      ),
-
-                      onPressed: () {
-                        _showBottomSheet(this.context);
-                      },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.1,
+                  ),
+                  MaterialButton(
+                    color: Colors.lightBlueAccent,
+                    elevation: 5,
+                    padding: EdgeInsets.all(15.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Text(
+                      'Ready',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: Colors.white),
                     ),
-                  ],
-                )
-
-              );
+                    onPressed: () {
+                      _showBottomSheet(this.context);
+                    },
+                  ),
+                ],
+              ));
             }
 
             return Center(
-              child: SpinKitFoldingCube(color: Theme.of(context).textSelectionColor),
+              child: SpinKitFoldingCube(
+                color: Theme.of(context).textSelectionTheme.selectionColor,
+              ),
             );
           },
         ),

@@ -19,15 +19,18 @@ class WifiStateError extends WifiState {
 
 class WifiStateScanning extends WifiState {}
 
-
 class WifiStateLoaded extends WifiState {
   final List<Map<String, dynamic>> wifiList;
 
-  WifiStateLoaded({this.wifiList});
+  WifiStateLoaded({required this.wifiList});
 }
 
 class WifiStateProvisioning extends WifiState {}
+
 class WifiStateProvisioningDisconnected extends WifiState {}
+
 class WifiStateProvisioningAuthError extends WifiState {}
+
 class WifiStateProvisioningNetworkNotFound extends WifiState {}
+
 class WifiStateProvisionedSuccessfully extends WifiState {}

@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
+
 import 'package:collection/collection.dart';
 import 'package:cryptography/cryptography.dart';
+import 'package:logger/logger.dart';
+
 import 'cryptor.dart';
 import 'proto/dart/sec1.pb.dart';
 import 'proto/dart/session.pb.dart';
 import 'security.dart';
-import 'package:logger/logger.dart';
 
 class Security1 implements Security {
   final String pop;
@@ -65,7 +67,8 @@ class Security1 implements Security {
     if (sessionState == SecurityState.RESPONSE1_REQUEST2) {
       sessionState = SecurityState.RESPONSE2;
       if (responseData == null) {
-        throw Exception('Response Data is null, when needed: if-Statement SecurityState.RESPONSE1_REQUEST2');
+        throw Exception(
+            'Response Data is null, when needed: if-Statement SecurityState.RESPONSE1_REQUEST2');
       }
       await setup0Response(responseData);
       return await setup1Request(responseData);
@@ -73,7 +76,8 @@ class Security1 implements Security {
     if (sessionState == SecurityState.RESPONSE2) {
       sessionState = SecurityState.FINISH;
       if (responseData == null) {
-        throw Exception('Response Data is null, when needed: if-Statement SecurityState.RESPONSE2');
+        throw Exception(
+            'Response Data is null, when needed: if-Statement SecurityState.RESPONSE2');
       }
       await setup1Response(responseData);
       return null;
@@ -118,14 +122,14 @@ class Security1 implements Security {
       Uint8List sharedKeyBytes;
       logger.i(
           'setup0Response: Shared key calculated: ${sharedSecret.toString()}');
-        var sink = Sha256().newHashSink();
-        sink.add(utf8.encode(pop));
-        sink.close();
-        final hash = await sink.hash();
-        sharedKeyBytes = _xor(
-            Uint8List.fromList(sharedSecret), Uint8List.fromList(hash.bytes));
-        logger.i(
-            'setup0Response: pop: $pop, hash: ${hash.bytes.toString()} sharedK: ${sharedKeyBytes.toString()}');
+      var sink = Sha256().newHashSink();
+      sink.add(utf8.encode(pop));
+      sink.close();
+      final hash = await sink.hash();
+      sharedKeyBytes = _xor(
+          Uint8List.fromList(sharedSecret), Uint8List.fromList(hash.bytes));
+      logger.i(
+          'setup0Response: pop: $pop, hash: ${hash.bytes.toString()} sharedK: ${sharedKeyBytes.toString()}');
 
       await crypt.init(sharedKeyBytes, deviceRandom);
       logger.i(
