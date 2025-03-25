@@ -11,7 +11,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -19,35 +18,14 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /** EspSoftapProvisioningPlugin */
-@SuppressWarnings("deprecation")
 public class EspSoftapProvisioningPlugin implements FlutterPlugin, MethodCallHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
   private MethodChannel channel;
   private Cipher cipher;
 
-  @SuppressWarnings("deprecation")
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "esp_provisioning_softap");
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "esp_provisioning_softap");
     channel.setMethodCallHandler(this);
-  }
-
-  // This static function is optional and equivalent to onAttachedToEngine. It supports the old
-  // pre-Flutter-1.12 Android projects. You are encouraged to continue supporting
-  // plugin registration via this function while apps migrate to use the new Android APIs
-  // post-flutter-1.12 via https://flutter.dev/go/android-project-migration.
-  //
-  // It is encouraged to share logic between onAttachedToEngine and registerWith to keep
-  // them functionally equivalent. Only one of onAttachedToEngine or registerWith will be called
-  // depending on the user's project. onAttachedToEngine or registerWith must both be defined
-  // in the same class.
-  @SuppressWarnings("deprecation")
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "esp_provisioning_softap");
-    channel.setMethodCallHandler(new EspSoftapProvisioningPlugin());
   }
 
   @Override
@@ -56,26 +34,41 @@ public class EspSoftapProvisioningPlugin implements FlutterPlugin, MethodCallHan
       byte[] key = call.argument("key");
       byte[] iv = call.argument("iv");
 
+      if (key == null || iv == null) {
+        result.error("INVALID_ARGUMENT", "Key and IV must not be null", null);
+        return;
+      }
+
       IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
       SecretKeySpec secretKeySpec = new SecretKeySpec(key, 0, key.length, "AES");
       try {
         this.cipher = Cipher.getInstance("AES/CTR/NoPadding");
         this.cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
-      } catch (NoSuchAlgorithmException e) {
+        result.success(true);
+      } catch (NoSuchAlgorithmException | InvalidKeyException | 
+               InvalidAlgorithmParameterException | NoSuchPaddingException e) {
         e.printStackTrace();
-      } catch (InvalidKeyException e) {
-        e.printStackTrace();
-      } catch (InvalidAlgorithmParameterException e) {
-        e.printStackTrace();
-      } catch (NoSuchPaddingException e) {
-        e.printStackTrace();
+        result.error("CRYPTO_ERROR", "Failed to initialize cipher: " + e.getMessage(), null);
+      }
+    } else if (call.method.equals("crypt")) {
+      if (cipher == null) {
+        result.error("NOT_INITIALIZED", "Cipher not initialized. Call init first.", null);
+        return;
       }
 
-      result.success(true);
-    } else if (call.method.equals("crypt")) {
       byte[] data = call.argument("data");
-      byte[] ret = cipher.update(data);
-      result.success(ret);
+      if (data == null) {
+        result.error("INVALID_ARGUMENT", "Data must not be null", null);
+        return;
+      }
+
+      try {
+        byte[] ret = cipher.update(data);
+        result.success(ret);
+      } catch (Exception e) {
+        e.printStackTrace();
+        result.error("CRYPTO_ERROR", "Encryption failed: " + e.getMessage(), null);
+      }
     } else {
       result.notImplemented();
     }
@@ -84,5 +77,7 @@ public class EspSoftapProvisioningPlugin implements FlutterPlugin, MethodCallHan
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     channel.setMethodCallHandler(null);
+    channel = null;
+    cipher = null;
   }
 }
