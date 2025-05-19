@@ -1,0 +1,27 @@
+name: example
+description: "Demonstrates how to use the esp_provisioning_softap plugin."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_spinkit: ^5.2.1
+  equatable: ^2.0.0
+  flutter_bloc: ^7.0.0
+  esp_provisioning_softap:
+    path: ../
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

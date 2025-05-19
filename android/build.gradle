@@ -25,21 +25,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-
-    compileSdkVersion 34
+    namespace "de.petersen.nico.esp_provisioning_softap"
+    compileSdkVersion 30
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 34
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-    buildFeatures {
-        buildConfig = true
+        minSdkVersion 16
     }
 }
 

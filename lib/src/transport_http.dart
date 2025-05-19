@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
+
 import 'package:http/http.dart' as http;
-import 'transport.dart';
-import 'dart:io';
-import 'dart:convert' as convert;
 import 'package:string_validator/string_validator.dart';
+
+import 'transport.dart';
 
 class TransportHTTP implements Transport {
   String hostname;
@@ -72,10 +70,13 @@ class TransportHTTP implements Transport {
         return body_bytes;
       } else {
         print('Connection failed – HTTP-Status ${response.statusCode}');
-        throw Future.error(Exception("ESP Device doesn't repond. HTTP-Status ${response.statusCode}"));
+        throw Future.error(Exception(
+            "ESP Device doesn't repond. HTTP-Status ${response.statusCode}"));
       }
     } catch (e) {
-      throw StateError('StateError in transport_http.dart – Connection error (${e.runtimeType.toString()})' + e.toString());
+      throw StateError(
+          'StateError in transport_http.dart – Connection error (${e.runtimeType.toString()})' +
+              e.toString());
     }
   }
 }
