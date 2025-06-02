@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:esp_provisioning_softap/esp_provisioning_softap.dart';
@@ -31,9 +29,9 @@ class WiFiBlocSoftAP extends Bloc<WifiEvent, WifiState> {
     try {
       const String pop = "80S2Y65N3E99G5I89X7O";
       if (Platform.isIOS) {
-        prov = await softApService.startProvisioning("wifi-prov.local", pop);
+        prov = await softApService.startProvisioning("192.168.4.1", pop);
       } else {
-        prov = await softApService.startProvisioning("192.168.4.1:80", pop);
+        prov = await softApService.startProvisioning("192.168.4.1", pop);
       }
     } catch (e) {
       log.e('Error connecting to device $e');
@@ -53,9 +51,9 @@ class WiFiBlocSoftAP extends Bloc<WifiEvent, WifiState> {
   Stream<WifiState> _mapProvisioningToState(
       WifiEventStartProvisioningSoftAP event) async* {
     yield WifiStateProvisioning();
-    List<int> customData = utf8.encode("Some CUSTOM data\0");
-    Uint8List customBytes = Uint8List.fromList(customData);
-    await prov?.sendReceiveCustomData(customBytes);
+    // List<int> customData = utf8.encode("Some CUSTOM data\0");
+    // Uint8List customBytes = Uint8List.fromList(customData);
+    // await prov?.sendReceiveCustomData(customBytes);
     await prov?.sendWifiConfig(ssid: event.ssid, password: event.password);
     await prov?.applyWifiConfig();
     await Future.delayed(Duration(seconds: 10));

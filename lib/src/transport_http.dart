@@ -19,7 +19,6 @@ class TransportHTTP implements Transport {
     }
 
     headers["Content-type"] = "application/x-www-form-urlencoded";
-    //header["Content-type"] =  "application/json";
     headers["Accept"] = "text/plain";
   }
 
@@ -48,12 +47,13 @@ class TransportHTTP implements Transport {
       print("Connecting to " + hostname + "/" + epName);
       final response = await client
           .post(
-              Uri.http(
-                hostname,
-                "/" + epName,
-              ),
-              headers: headers,
-              body: data)
+            Uri.http(
+              hostname,
+              "/" + epName,
+            ),
+            headers: headers,
+            body: data,
+          )
           .timeout(timeout)
           .onError((error, stackTrace) {
         print("onError");
@@ -65,17 +65,16 @@ class TransportHTTP implements Transport {
       _updateCookie(response);
       if (response.statusCode == 200) {
         print('Connection successful');
-        // client.close();
         final Uint8List body_bytes = response.bodyBytes;
         return body_bytes;
       } else {
-        print('Connection failed – HTTP-Status ${response.statusCode}');
+        print('Connection failed - HTTP-Status ${response.statusCode}');
         throw Future.error(Exception(
             "ESP Device doesn't repond. HTTP-Status ${response.statusCode}"));
       }
     } catch (e) {
       throw StateError(
-          'StateError in transport_http.dart – Connection error (${e.runtimeType.toString()})' +
+          'StateError in transport_http.dart - Connection error (${e.runtimeType.toString()})' +
               e.toString());
     }
   }
