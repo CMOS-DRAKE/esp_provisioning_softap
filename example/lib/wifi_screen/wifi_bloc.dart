@@ -29,7 +29,7 @@ class WiFiBlocSoftAP extends Bloc<WifiEvent, WifiState> {
   Stream<WifiState> _mapLoadToState() async* {
     yield WifiStateConnecting();
     try {
-      const String pop = "abcd1234";
+      const String pop = "80S2Y65N3E99G5I89X7O";
       if (Platform.isIOS) {
         prov = await softApService.startProvisioning("wifi-prov.local", pop);
       } else {
