@@ -131,13 +131,14 @@ class _WiFiScreenSoftAPState extends State<WiFiScreenSoftAP> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SpinKitThreeBounce(
-                      color:
-                          Theme.of(context).textSelectionTheme.selectionColor,
-                      size: 20,
+                    // SpinKitThreeBounce(
+                    //   color:
+                    //       Theme.of(context).textSelectionTheme.selectionColor,
+                    //   size: 20,
+                    // ),
+                    Text(
+                      'Provisioning',
                     ),
-                    Text('Provisioning',
-                        style: Theme.of(context).textTheme.bodyLarge),
                   ],
                 ),
               );
