@@ -1,0 +1,22 @@
+PODS:
+  - esp_provisioning_softap (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - esp_provisioning_softap (from `.symlinks/plugins/esp_provisioning_softap/ios`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  esp_provisioning_softap:
+    :path: ".symlinks/plugins/esp_provisioning_softap/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  esp_provisioning_softap: afae2212ada1e46857f83a6c522a3f848f56bd0e
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+
+PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+
+COCOAPODS: 1.16.2

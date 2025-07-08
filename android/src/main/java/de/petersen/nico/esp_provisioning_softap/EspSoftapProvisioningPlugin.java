@@ -11,7 +11,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -44,11 +43,11 @@ public class EspSoftapProvisioningPlugin implements FlutterPlugin, MethodCallHan
   // them functionally equivalent. Only one of onAttachedToEngine or registerWith will be called
   // depending on the user's project. onAttachedToEngine or registerWith must both be defined
   // in the same class.
-  @SuppressWarnings("deprecation")
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "esp_provisioning_softap");
-    channel.setMethodCallHandler(new EspSoftapProvisioningPlugin());
-  }
+  // @SuppressWarnings("deprecation")
+  // public static void registerWith(Registrar registrar) {
+  //   final MethodChannel channel = new MethodChannel(registrar.messenger(), "esp_provisioning_softap");
+  //   channel.setMethodCallHandler(new EspSoftapProvisioningPlugin());
+  // }
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
