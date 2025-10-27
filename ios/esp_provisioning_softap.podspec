@@ -1,23 +1,16 @@
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint esp_provisioning_softap.podspec` to validate before publishing.
-#
 Pod::Spec.new do |s|
   s.name             = 'esp_provisioning_softap'
-  s.version          = '0.0.1'
-  s.summary          = 'A Flutter plugin for provisioning ESP32 modules with SoftAP'
-  s.description      = <<-DESC
-A Flutter plugin for provisioning ESP32 modules with SoftAP
-                       DESC
-  s.homepage         = 'http://example.com'
+  s.version          = '1.0.0'
+  s.summary          = 'ESP Provisioning SoftAP Plugin'
+  s.description      = 'Flutter plugin for ESP device provisioning via SoftAP'
+  s.homepage         = 'https://github.com/yourusername/esp_provisioning_softap'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Your Name' => 'your.email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files     = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '8.0'
+  s.platform = :ios, '12.0'
+  s.swift_version    = '5.0'
 
-  # Flutter.framework does not contain a i386 slice.
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
-  s.swift_version = '5.0'
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 end
