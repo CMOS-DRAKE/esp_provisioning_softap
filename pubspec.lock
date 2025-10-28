@@ -143,10 +143,10 @@ packages:
     dependency: "direct main"
     description:
       name: logger
-      sha256: "7ad7215c15420a102ec687bb320a7312afd449bac63bfb1c60d9787c27b9767f"
+      sha256: a7967e31b703831a893bbc3c3dd11db08126fe5f369b5c648a36f821979f5be3
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "2.6.2"
   matcher:
     dependency: transitive
     description:
@@ -183,10 +183,10 @@ packages:
     dependency: "direct main"
     description:
       name: protobuf
-      sha256: "01dd9bd0fa02548bf2ceee13545d4a0ec6046459d847b6b061d8a27237108a08"
+      sha256: "826d6a306be26f29e5cd9faeb0c97aad5897270341dab6dbd7b8acd675937006"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "5.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -228,10 +228,10 @@ packages:
     dependency: "direct main"
     description:
       name: string_validator
-      sha256: "50dd8ecf91db6a732f4a851eeae81ee12406eedc62d0da72f2d91a04a2d10dd8"
+      sha256: "240f4c98027dfbe8639c8271ef18cc9de735b47067aa15a720cfed9576a512b1"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "1.2.0"
   term_glyph:
     dependency: transitive
     description:

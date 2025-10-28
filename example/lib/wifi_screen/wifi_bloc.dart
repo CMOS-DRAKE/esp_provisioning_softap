@@ -27,7 +27,7 @@ class WiFiBlocSoftAP extends Bloc<WifiEvent, WifiState> {
   Stream<WifiState> _mapLoadToState() async* {
     yield WifiStateConnecting();
     try {
-      const String pop = "80S2Y65N3E99G5I89X7O";
+      const String pop = "80S2Y65N3E99G5I96X7O";
       if (Platform.isIOS) {
         prov = await softApService.startProvisioning("192.168.4.1", pop);
       } else {
@@ -41,7 +41,7 @@ class WiFiBlocSoftAP extends Bloc<WifiEvent, WifiState> {
     try {
       var listWifi = await prov?.startScanWiFi();
       yield WifiStateLoaded(wifiList: listWifi ?? []);
-      log.v('Wifi $listWifi');
+      log.t('Wifi $listWifi');
     } catch (e) {
       log.e('Error scan WiFi network $e');
       yield WifiStateError('Error scan WiFi network');

@@ -1,5 +1,5 @@
 PODS:
-  - esp_provisioning_softap (0.0.1):
+  - esp_provisioning_softap (1.0.0):
     - Flutter
   - Flutter (1.0.0)
 
@@ -14,9 +14,9 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  esp_provisioning_softap: afae2212ada1e46857f83a6c522a3f848f56bd0e
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  esp_provisioning_softap: ac1e2e39371dc1660bd1dcd5df836aac0fbeaa63
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
 
-PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+PODFILE CHECKSUM: 251cb053df7158f337c0712f2ab29f4e0fa474ce
 
 COCOAPODS: 1.16.2
